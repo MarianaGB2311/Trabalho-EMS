@@ -1,0 +1,222 @@
+#####################################Problema 3###########################################################################3
+
+import numpy as np
+import scipy.signal as sg
+import math
+import matplotlib.pyplot as plt
+
+"""
+def myfreqz(b,a):
+    w,h = sg.freqz(b,a)               #a=1 para não ter denominador, ou seja, n ter zeros
+    #w é a freq e h resposta à freq
+    h_db = 20 * np.log10 (abs(h))
+    plt.subplot(211)
+    plt.plot(w*fs/(2*np.pi), h_db)
+    plt.ylim(-90, 5)
+    plt.ylabel('Magnitude [dB]')
+    plt.title('Frequency response')
+    plt.axhline(-3,color="pink",linestyle="dashed")
+    plt.axvline(136.6,color="pink",linestyle="dashed")
+    plt.grid()
+    ##plt.xlim(0,4)
+    plt.subplot(212)
+    h_Phase = np.unwrap(np.arctan2(np.imag(h),np.real(h)))*180/np.pi
+    plt.plot(w*fs/(2*np.pi), h_Phase)
+    plt.ylabel('Phase [degree]')
+    plt.xlabel(r' Frequency [Hz]')
+    plt.title(r'Phase response')
+    plt.axhline(-186.1,color="pink",linestyle="dashed")
+    plt.axvline(136.6,color="pink",linestyle="dashed")
+    plt.subplots_adjust(hspace=0.5)
+
+
+
+
+wc=58*2*np.pi
+ws=600*2*np.pi
+fs=20000
+w1=wc/fs     #normalização
+w2=ws/fs
+#print(w1)
+#print(w2)
+window = "hanning"
+M=(8*np.pi/((w2-w1)))
+M1=math.ceil(M)
+if M1%2==0:   #se número é par, para impar é ==1
+    M1=M1+1
+a1=sg.firwin(M1, cutoff=w1, window = window)
+myfreqz(a1,1)
+print(M1)
+
+
+
+
+def ver_valor_freq(y,b):     #y em dB e b=a1
+    w,h = sg.freqz(b,1)               #=1 para não ter denominador, ou seja, n ter zeros
+    #w é a freq e h resposta à freq
+    h_db = 20 * np.log10 (abs(h))
+    k=0
+    for i in h_db:
+        k=k+1
+        if int(i)==y:
+            return (w[k-1]/max(w))*(20000/2)
+            
+print(ver_valor_freq(-3, a1))
+#print(ver_valor_freq(-40, a1))
+  
+
+def ver_valor_fase(y,a1,fs):     
+    wz,hz=sg.freqz(a1,1)  
+    h_phase = np.unwrap(np.arctan2(np.imag(hz),np.real(hz)))*180/np.pi 
+    k=0
+    for i in wz:
+        freq=i*fs/(2*np.pi)
+        k=k+1
+        if int(freq)==y:
+            return (h_phase[k-1])       
+
+     
+print(ver_valor_fase(136,a1,20e3)) 
+
+"""
+
+def myfreqz(b,a):
+    w,h = sg.freqz(b,a)               #a=1 para não ter denominador, ou seja, n ter zeros
+    #w é a freq e h resposta à freq
+    h_db = 20 * np.log10 (abs(h))
+    plt.subplot(211)
+    plt.plot(w*fs/(2*np.pi), h_db)
+    plt.ylim(-90, 5)
+    plt.ylabel('Magnitude [dB]')
+    plt.title('Frequency response')
+    plt.axhline(-3,color="pink",linestyle="dashed")
+    plt.axvline(743.6,color="pink",linestyle="dashed")
+    plt.grid()
+    ##plt.xlim(0,4)
+    plt.subplot(212)
+    h_Phase = np.unwrap(np.arctan2(np.imag(h),np.real(h)))*180/np.pi
+    plt.plot(w*fs/(2*np.pi), h_Phase)
+    plt.ylabel('Phase [degree]')
+    plt.xlabel(r' Frequency [Hz]')
+    plt.title(r'Phase response')
+    plt.axhline(-133.6,color="pink",linestyle="dashed")
+    plt.axvline(743.6,color="pink",linestyle="dashed")
+    plt.subplots_adjust(hspace=0.5)
+
+
+wc=58*2*np.pi
+ws=4000*2*np.pi
+fs=20000
+w1=wc/fs     #normalização
+w2=ws/fs
+#print(w1)
+#print(w2)
+window = "hanning"
+M=(8*np.pi/((w2-w1)))
+M1=math.ceil(M)
+if M1%2==0:   #se número é par, para impar é ==1
+    M1=M1+1
+a1=sg.firwin(M1, cutoff=w1, window = window)
+myfreqz(a1,1)
+print(M1)
+
+print(a1)
+
+
+def ver_valor_freq(y,b):     #y em dB e b=a1
+    w,h = sg.freqz(b,1)               #=1 para não ter denominador, ou seja, n ter zeros
+    #w é a freq e h resposta à freq
+    h_db = 20 * np.log10 (abs(h))
+    k=0
+    for i in h_db:
+        k=k+1
+        if int(i)==y:
+            return (w[k-1]/max(w))*(20000/2)
+            
+print(ver_valor_freq(-3, a1))
+#print(ver_valor_freq(-40, a1))
+  
+
+def ver_valor_fase(y,a1,fs):     
+    wz,hz=sg.freqz(a1,1)  
+    h_phase = np.unwrap(np.arctan2(np.imag(hz),np.real(hz)))*180/np.pi 
+    k=0
+    for i in wz:
+        freq=i*fs/(2*np.pi)
+        k=k+1
+        if int(freq)==y:
+            return (h_phase[k-1])       
+
+     
+print(ver_valor_fase(742,a1,20e3)) 
+
+############################################Problem 4####################################################
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy.signal as sg
+
+numz,denz=([0.31768,0.63536,0.31768],[1,-0.36953,0.19582])
+ 
+ 
+def myfreqz(numz,denz,a):
+    fs=a
+    wz,hz=sg.freqz(numz,denz)
+    print(wz*fs/(2*np.pi))
+    plt.semilogx(wz*fs/(2*np.pi), 20*np.log10(abs(hz)))
+    plt.ylabel('Amplitude [dB]')
+    plt.xlabel('Frequency [Hz]')
+    plt.title('Digital Filter Amplitude Response')
+    plt.axhline(0.7,color="pink",linestyle="dashed")
+    plt.axvline(4003,color="pink",linestyle="dashed")
+    plt.grid(linestyle="dotted")
+    plt.figure()
+    h_Phase = np.unwrap(np.arctan2(np.imag(hz),np.real(hz)))*180/np.pi
+    #print(h_Phase)
+    plt.semilogx(wz*fs/(2*np.pi),h_Phase)
+    plt.ylabel('Phase [Degree]')
+    plt.xlabel(r'Frequency [Hz]')
+    plt.title(r'Phase response')
+    plt.axvline(4003,color="pink",linestyle="dashed")
+    plt.axhline(-90,color="pink",linestyle="dashed")
+    plt.subplots_adjust(hspace=1)
+
+
+
+myfreqz(numz,denz,20e3)
+
+
+
+def ver_valor_freq(y,numz,denz,fs):    
+    wz,hz=sg.freqz(numz,denz)               
+    h_db = 20 * np.log10 (abs(hz))
+    print(max(h_db))
+    k=0
+    for i in h_db:
+        k=k+1
+        if round(i, 1)==y:
+            return (wz[k-1]*fs/(2*np.pi))
+     
+banda_pass=3.738347372319737-3   #=0.738
+print(ver_valor_freq(0.7, numz, denz,20e3))
+#print(ver_valor_freq(-40, numz, denz,20e3))
+
+def ver_valor_fase(y,numz,denz,fs):     
+    wz,hz=sg.freqz(numz,denz)  
+    h_phase = np.unwrap(np.arctan2(np.imag(hz),np.real(hz)))*180/np.pi    
+    k=0
+    for i in wz:
+        freq=i*fs/(2*np.pi)
+        k=k+1
+        if int(freq)==y:
+            return (h_phase[k-1])       
+
+     
+print(ver_valor_fase(4003,numz, denz,20e3))     
+
+
+
+
+
+  
